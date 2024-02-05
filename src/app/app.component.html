@@ -1,1 +1,6 @@
-<h1>Hello new application</h1>
+<h1 class="text-3xl text-center m-10">
+  <div class="preloader" *ngIf="productsFetching">
+    Loading...
+  </div>
+  <app-table *ngIf="!productsFetching" [products]="products"></app-table>
+</h1>

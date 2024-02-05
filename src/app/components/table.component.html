@@ -1,0 +1,59 @@
+<div class="table-with-pagination">
+  <div class="preloader" *ngIf="!productsLength">
+    No results
+  </div>
+
+  <div class="table-data" *ngIf="productsLength">
+    <table class="mt-10">
+      <thead>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Category</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let product of visibleProducts">
+          <td>{{ product.id }}</td>
+          <td><img class="image" [src]="product.image"></td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.title }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="pagesList.length > 1"
+      class="flex mt-20 items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
+    >
+      <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Showing
+            <span class="font-medium">{{ productsOnPage }}</span>
+            to
+            <span class="font-medium">{{ currentPageNumber }}</span>
+            of
+            <span class="font-medium">{{ productsLength }}</span>
+            results
+          </p>
+        </div>
+        <div>
+          <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+            <a *ngFor="let pageNumber of pagesList"
+              class="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              [ngClass]="{
+                'z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600': (pageNumber === currentPageNumber),
+                'text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0': (pageNumber !== currentPageNumber)
+              }"
+              (click)="changePageNumber($event, pageNumber)"
+            >{{ pageNumber }}</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
